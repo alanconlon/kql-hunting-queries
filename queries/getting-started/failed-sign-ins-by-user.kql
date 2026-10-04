@@ -9,6 +9,6 @@
 let Lookback = 24h;          // how far back to look
 SigninLogs
 | where TimeGenerated > ago(Lookback)   // filter on time first: cheapest filter
-| where ResultType != 0                 // 0 = success; anything else is a failure code
+| where ResultType != "0"                 // 0 = success; anything else is a failure code
 | summarize FailedAttempts = count() by UserPrincipalName
 | sort by FailedAttempts desc

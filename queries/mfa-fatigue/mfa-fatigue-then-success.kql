@@ -12,14 +12,14 @@ let Threshold = 8;           // failed prompts before a user counts as targeted
 // Step 1: users with a burst of failed MFA prompts, and when the last one was
 let Failures = SigninLogs
     | where TimeGenerated > ago(Lookback)
-    | where ResultType == 500121
+    | where ResultType == "500121"
     | summarize FailedPrompts = count(), LastFail = max(TimeGenerated)
         by UserPrincipalName
     | where FailedPrompts >= Threshold;
 // Step 2: successful sign-ins for those users that came after the last failure
 SigninLogs
 | where TimeGenerated > ago(Lookback)
-| where ResultType == 0
+| where ResultType == "0"
 | join kind=inner Failures on UserPrincipalName
 | where TimeGenerated > LastFail
 | project UserPrincipalName, FailedPrompts, LastFail,

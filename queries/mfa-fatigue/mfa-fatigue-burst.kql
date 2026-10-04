@@ -12,7 +12,7 @@ let Window = 15m;            // size of each time bucket
 let Threshold = 8;           // denied prompts per bucket before it's suspicious
 SigninLogs
 | where TimeGenerated > ago(Lookback)
-| where ResultType == 500121              // 500121 = strong authentication (MFA) failed
+| where ResultType == "500121"              // 500121 = strong authentication (MFA) failed
 | summarize FailedPrompts = count() by UserPrincipalName, bin(TimeGenerated, Window)
 | where FailedPrompts >= Threshold
 | sort by FailedPrompts desc
