@@ -1,0 +1,14 @@
+// Failed sign-ins by user
+// ------------------------------------------------------------------
+// What it finds: the accounts with the most failed Entra ID sign-ins
+//   in the lookback window. A starting point for any hunt, and the
+//   query that teaches where/summarize/sort in one go.
+// Table: SigninLogs (Microsoft Sentinel / Log Analytics)
+// Written up in: https://alanconlon.com/posts/sentinel-kql-primer/
+// ------------------------------------------------------------------
+let Lookback = 24h;          // how far back to look
+SigninLogs
+| where TimeGenerated > ago(Lookback)   // filter on time first: cheapest filter
+| where ResultType != 0                 // 0 = success; anything else is a failure code
+| summarize FailedAttempts = count() by UserPrincipalName
+| sort by FailedAttempts desc

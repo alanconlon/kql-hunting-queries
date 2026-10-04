@@ -1,0 +1,26 @@
+// MFA fatigue that worked: denied-prompt burst followed by a success
+// ------------------------------------------------------------------
+// What it finds: users who had a burst of failed MFA prompts and then
+//   a successful sign-in afterwards. That ordering is what turns a
+//   noisy alert into a probable compromise worth waking someone for.
+// Table: SigninLogs
+// MITRE ATT&CK: T1621 Multi-Factor Authentication Request Generation
+// Written up in: https://alanconlon.com/posts/hunting-mfa-fatigue-kql/
+// ------------------------------------------------------------------
+let Lookback = 1d;           // how far back to look
+let Threshold = 8;           // failed prompts before a user counts as targeted
+// Step 1: users with a burst of failed MFA prompts, and when the last one was
+let Failures = SigninLogs
+    | where TimeGenerated > ago(Lookback)
+    | where ResultType == 500121
+    | summarize FailedPrompts = count(), LastFail = max(TimeGenerated)
+        by UserPrincipalName
+    | where FailedPrompts >= Threshold;
+// Step 2: successful sign-ins for those users that came after the last failure
+SigninLogs
+| where TimeGenerated > ago(Lookback)
+| where ResultType == 0
+| join kind=inner Failures on UserPrincipalName
+| where TimeGenerated > LastFail
+| project UserPrincipalName, FailedPrompts, LastFail,
+    SuccessAt = TimeGenerated, IPAddress, Location, AppDisplayName

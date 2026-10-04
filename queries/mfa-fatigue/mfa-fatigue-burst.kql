@@ -1,0 +1,18 @@
+// MFA fatigue: bursts of denied MFA prompts
+// ------------------------------------------------------------------
+// What it finds: users who denied (or ignored) a burst of MFA push
+//   prompts in a short window. The pattern an attacker with a valid
+//   password leaves when they spam approvals hoping the user gives in.
+// Table: SigninLogs
+// MITRE ATT&CK: T1621 Multi-Factor Authentication Request Generation
+// Written up in: https://alanconlon.com/posts/hunting-mfa-fatigue-kql/
+// ------------------------------------------------------------------
+let Lookback = 1d;           // how far back to look
+let Window = 15m;            // size of each time bucket
+let Threshold = 8;           // denied prompts per bucket before it's suspicious
+SigninLogs
+| where TimeGenerated > ago(Lookback)
+| where ResultType == 500121              // 500121 = strong authentication (MFA) failed
+| summarize FailedPrompts = count() by UserPrincipalName, bin(TimeGenerated, Window)
+| where FailedPrompts >= Threshold
+| sort by FailedPrompts desc
