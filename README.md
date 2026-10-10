@@ -4,6 +4,8 @@ Free, readable KQL hunting queries for Microsoft Sentinel and Defender. Each one
 
 They're the queries from the [KQL Hunting series](https://alanconlon.com/series/kql-hunting/) on [alanconlon.com](https://alanconlon.com). New ones land here as each post goes live.
 
+New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting/): what to hunt first, and in what order. Once a query works, the [free KQL Detection Tuning Checklist](https://alanconlon.com/free-checklist/) covers turning it into an alert your team still trusts.
+
 ## The queries
 
 | Query | Finds | MITRE ATT&CK | Write-up |
