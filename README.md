@@ -18,15 +18,49 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 
 ## Using them
 
-All of them run against the `SigninLogs` table, so you need the Microsoft Entra ID data connector sending sign-in logs to your Sentinel workspace (or any Log Analytics workspace).
+All of them run against the `SigninLogs` table. Before you start you need:
 
-1. Open **Logs** in Sentinel (or **Advanced hunting** in Defender, if your Entra sign-in data is there).
+- The Microsoft Entra ID data connector sending sign-in logs (`SigninLogs`) to your Sentinel workspace (or any Log Analytics workspace).
+- Read access to that workspace, enough to run queries in **Logs**.
+
+1. Open **Logs** in Sentinel or your Log Analytics workspace.
 2. Paste the query and run it.
 3. Tune the `let` values at the top. Every query has its lookback window and threshold pulled out as named variables, so you can adjust them without reading the logic first.
+
+**Defender Advanced Hunting needs changes.** Advanced hunting keeps Entra sign-ins in a different table (`AADSignInEventsBeta`, or `EntraIdSignInEvents` in newer tenants), with different column names and values. The queries won't run there as written. Check the table's schema in the [Microsoft Defender XDR docs](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table) and adapt the column names before you rely on the results.
 
 **Thresholds are starting points, not answers.** A threshold that's quiet in a 500-person organisation will be noisy in a 50,000-person one. Run a query over a few weeks of history, see what normal looks like for you, then set the number just above it. The write-ups go into how to do that for each one.
 
 **Hunting first, alerting second.** Run them by hand until you trust what they return. Only then turn one into a scheduled analytics rule, and when you do, the "then success" variants are the ones worth alerting on. The others are for looking around.
+
+## Planned hunts
+
+These are next. Each query file lands here when its post goes live, not before.
+
+- **Impossible travel**: sign-ins for one account from places too far apart for the time between them (`SigninLogs`).
+- **Privileged role changes**: accounts added to admin roles, especially outside normal change windows (`AuditLogs`).
+- **Malicious inbox rules**: rules that forward, delete or hide mail, a common step after a mailbox is taken over (`OfficeActivity`).
+
+## File format
+
+Every query file follows the same layout, so you can read any of them the same way:
+
+1. A one-line title comment, then a header block between dashed lines with:
+   - **What it finds**: a short description of the behaviour and why it matters.
+   - **Table**: the table it queries.
+   - **MITRE ATT&CK**: the technique ID and name, where one fits.
+   - **Written up in**: a link to the post that explains it.
+2. `let` variables at the top for the lookback window, thresholds and anything you'd change for your own tenant, each with a short comment.
+3. `// Step 1:`, `// Step 2:` comments through the logic when a query has more than one stage.
+
+New queries use the same layout.
+
+## Changelog
+
+- **Pending**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
+- **2026-10-10**: README links the start-here guide and the tuning checklist.
+- **2026-10-04**: `ResultType` values quoted as strings (`"0"`, `"500121"`), since the column is a string.
+- **2026-10-04**: Initial queries from the KQL Hunting series.
 
 ## Licence
 
