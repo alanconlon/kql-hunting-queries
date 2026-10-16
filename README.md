@@ -58,7 +58,7 @@ New queries use the same layout.
 
 ## Changelog
 
-- **Pending**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
+- **2026-10-16**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
 - **2026-10-10**: README links the start-here guide and the tuning checklist.
 - **2026-10-04**: `ResultType` values quoted as strings (`"0"`, `"500121"`), since the column is a string.
 - **2026-10-04**: Initial queries from the KQL Hunting series.
