@@ -4,6 +4,7 @@
 //   in the lookback window. A starting point for any hunt, and the
 //   query that teaches where/summarize/sort in one go.
 // Table: SigninLogs (Microsoft Sentinel / Log Analytics)
+// MITRE ATT&CK: T1110 Brute Force (failed sign-ins are the first sign of guessing)
 // Written up in: https://alanconlon.com/posts/sentinel-kql-primer/
 // ------------------------------------------------------------------
 let Lookback = 24h;          // how far back to look
