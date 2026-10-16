@@ -10,7 +10,7 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 
 | Query | Finds | MITRE ATT&CK | Write-up |
 |---|---|---|---|
-| [Failed sign-ins by user](queries/getting-started/failed-sign-ins-by-user.kql) | Accounts with the most failed sign-ins | – | [KQL primer](https://alanconlon.com/posts/sentinel-kql-primer/) |
+| [Failed sign-ins by user](queries/getting-started/failed-sign-ins-by-user.kql) | Accounts with the most failed sign-ins | [T1110](https://attack.mitre.org/techniques/T1110/) | [KQL primer](https://alanconlon.com/posts/sentinel-kql-primer/) |
 | [MFA fatigue burst](queries/mfa-fatigue/mfa-fatigue-burst.kql) | Users hit with a burst of denied MFA prompts | [T1621](https://attack.mitre.org/techniques/T1621/) | [Hunting MFA fatigue](https://alanconlon.com/posts/hunting-mfa-fatigue-kql/) |
 | [MFA fatigue then success](queries/mfa-fatigue/mfa-fatigue-then-success.kql) | A prompt burst followed by a successful sign-in | [T1621](https://attack.mitre.org/techniques/T1621/) | [Hunting MFA fatigue](https://alanconlon.com/posts/hunting-mfa-fatigue-kql/) |
 | [Password spray by IP](queries/password-spray/password-spray-by-ip.kql) | One source failing against many distinct accounts | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
