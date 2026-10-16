@@ -1,0 +1,21 @@
+name: Suggest a query
+description: An idea for a new hunt, or a change to an existing one.
+labels: ["query idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should it find?
+      description: The behaviour or attack you'd like to hunt for.
+    validations:
+      required: true
+  - type: input
+    id: table
+    attributes:
+      label: Table
+      description: The table you'd expect it to use, if you know (for example SigninLogs, AuditLogs).
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Links, MITRE technique, or a query you've started on.

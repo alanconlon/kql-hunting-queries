@@ -1,0 +1,23 @@
+name: Report a false positive or problem
+description: A query that's noisy, wrong, or won't run.
+labels: ["query feedback"]
+body:
+  - type: input
+    id: query
+    attributes:
+      label: Which query?
+      description: File name, for example mfa-fatigue-burst.kql.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What it returned or the error you got, and what you expected. Please remove usernames, IPs and tenant details.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where did you run it?
+      description: Sentinel, Log Analytics, or Defender Advanced Hunting.
