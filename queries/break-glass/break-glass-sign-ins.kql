@@ -1,0 +1,24 @@
+// Break-glass accounts: any successful sign-in
+// ------------------------------------------------------------------
+// What it finds: successful sign-ins to your emergency-access
+//   (break-glass) accounts. These should almost never be used, so
+//   there's no threshold: one sign-in is the signal. Investigate every
+//   hit and confirm it was a planned test or a real emergency.
+// Table: SigninLogs
+// MITRE ATT&CK: T1078.004 Valid Accounts: Cloud Accounts
+// Written up in: https://alanconlon.com/posts/break-glass-accounts/
+// ------------------------------------------------------------------
+let Lookback = 1d;           // how far back to look
+let BreakGlassAccounts = dynamic([   // replace with your own break-glass UPNs
+    "breakglass1@yourtenant.onmicrosoft.com",
+    "breakglass2@yourtenant.onmicrosoft.com"
+]);
+// Step 1: sign-ins to the break-glass accounts in the window
+SigninLogs
+| where TimeGenerated > ago(Lookback)
+| where UserPrincipalName in (BreakGlassAccounts)
+// Step 2: keep only the successful ones
+| where ResultType == "0"                   // 0 = success
+// Step 3: who, from where, into what
+| project TimeGenerated, UserPrincipalName, IPAddress,
+    Location = tostring(LocationDetails.city), AppDisplayName
