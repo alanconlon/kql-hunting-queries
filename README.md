@@ -2,7 +2,7 @@
 
 Free, readable KQL hunting queries for Microsoft Sentinel and Defender. Each one is short enough to understand at a glance, commented step by step, and comes with a full write-up explaining how it was built and what to do with what it finds.
 
-They're the queries from the [KQL Hunting series](https://alanconlon.com/series/kql-hunting/) on [alanconlon.com](https://alanconlon.com). New ones land here as each post goes live.
+They're the queries from the [KQL Hunting series](https://alanconlon.com/series/kql-hunting/) and the [Entra Identity series](https://alanconlon.com/series/entra-identity/) on [alanconlon.com](https://alanconlon.com). New ones land here as each post goes live.
 
 New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting/): what to hunt first, and in what order. Once a query works, the [free KQL Detection Tuning Checklist](https://alanconlon.com/free-checklist/) covers turning it into an alert your team still trusts.
 
@@ -15,6 +15,7 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 | [MFA fatigue then success](queries/mfa-fatigue/mfa-fatigue-then-success.kql) | A prompt burst followed by a successful sign-in | [T1621](https://attack.mitre.org/techniques/T1621/) | [Hunting MFA fatigue](https://alanconlon.com/posts/hunting-mfa-fatigue-kql/) |
 | [Password spray by IP](queries/password-spray/password-spray-by-ip.kql) | One source failing against many distinct accounts | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Password spray then success](queries/password-spray/password-spray-then-success.kql) | Successful sign-ins from an IP that was spraying | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
+| [Break-glass sign-ins](queries/break-glass/break-glass-sign-ins.kql) | Any successful sign-in to an emergency-access account | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Break-glass accounts](https://alanconlon.com/posts/break-glass-accounts/) |
 
 ## Using them
 
