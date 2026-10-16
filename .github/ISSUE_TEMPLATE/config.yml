@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Read the write-ups
+    url: https://alanconlon.com/kql-threat-hunting/
+    about: Every query has a full post explaining how it works and how to tune it.
