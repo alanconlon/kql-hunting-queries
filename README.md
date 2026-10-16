@@ -15,6 +15,7 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 | [MFA fatigue then success](queries/mfa-fatigue/mfa-fatigue-then-success.kql) | A prompt burst followed by a successful sign-in | [T1621](https://attack.mitre.org/techniques/T1621/) | [Hunting MFA fatigue](https://alanconlon.com/posts/hunting-mfa-fatigue-kql/) |
 | [Password spray by IP](queries/password-spray/password-spray-by-ip.kql) | One source failing against many distinct accounts | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Password spray then success](queries/password-spray/password-spray-then-success.kql) | Successful sign-ins from an IP that was spraying | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
+| [Impossible travel](queries/impossible-travel/impossible-travel.kql) | Consecutive successful sign-ins too far apart for the time between them | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Hunting impossible travel](https://alanconlon.com/posts/hunting-impossible-travel-kql/) |
 
 ## Using them
 
