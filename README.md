@@ -58,7 +58,7 @@ New queries use the same layout.
 
 ## Changelog
 
-- **2026-11-03**: Impossible travel: catches sign-ins under a second apart, ignores hops under 500 km, needs both coordinates, and notes that SigninLogs is interactive only.
+- **2026-11-03**: Impossible travel: catches sign-ins under a second apart, ignores hops under 500 km, needs both coordinates, and notes that SigninLogs is interactive only ([PR #10](https://github.com/alanconlon/kql-hunting-queries/pull/10)).
 - **2026-11-03**: Impossible travel query ([PR #3](https://github.com/alanconlon/kql-hunting-queries/pull/3)).
 - **2026-10-16**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
 - **2026-10-10**: README links the start-here guide and the tuning checklist.
