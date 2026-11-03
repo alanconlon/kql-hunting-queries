@@ -16,7 +16,7 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 | [Password spray by IP](queries/password-spray/password-spray-by-ip.kql) | One source failing against many distinct accounts | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Password spray then success](queries/password-spray/password-spray-then-success.kql) | Successful sign-ins from an IP that was spraying | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Break-glass sign-ins](queries/break-glass/break-glass-sign-ins.kql) | Any successful sign-in to an emergency-access account | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Break-glass accounts](https://alanconlon.com/posts/break-glass-accounts/) |
-| [Impossible travel](queries/impossible-travel/impossible-travel.kql) | Consecutive successful sign-ins too far apart for the time between them | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Hunting impossible travel](https://alanconlon.com/posts/hunting-impossible-travel-kql/) |
+| [Impossible travel](queries/impossible-travel/impossible-travel.kql) | Consecutive successful sign-ins too far apart for the time between them (hops of 500 km or more) | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Hunting impossible travel](https://alanconlon.com/posts/hunting-impossible-travel-kql/) |
 
 ## Using them
 
@@ -58,6 +58,7 @@ New queries use the same layout.
 
 ## Changelog
 
+- **2026-11-03**: Impossible travel: catches sign-ins under a second apart, ignores hops under 500 km, needs both coordinates, and notes that SigninLogs is interactive only ([PR #10](https://github.com/alanconlon/kql-hunting-queries/pull/10)).
 - **2026-11-03**: Impossible travel query ([PR #3](https://github.com/alanconlon/kql-hunting-queries/pull/3)).
 - **2026-10-16**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
 - **2026-10-10**: README links the start-here guide and the tuning checklist.
