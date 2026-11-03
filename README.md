@@ -16,6 +16,7 @@ New to hunting? [Start with the guide](https://alanconlon.com/kql-threat-hunting
 | [Password spray by IP](queries/password-spray/password-spray-by-ip.kql) | One source failing against many distinct accounts | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Password spray then success](queries/password-spray/password-spray-then-success.kql) | Successful sign-ins from an IP that was spraying | [T1110.003](https://attack.mitre.org/techniques/T1110/003/) | [Hunting password spray](https://alanconlon.com/posts/hunting-password-spray-kql/) |
 | [Break-glass sign-ins](queries/break-glass/break-glass-sign-ins.kql) | Any successful sign-in to an emergency-access account | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Break-glass accounts](https://alanconlon.com/posts/break-glass-accounts/) |
+| [Impossible travel](queries/impossible-travel/impossible-travel.kql) | Consecutive successful sign-ins too far apart for the time between them | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [Hunting impossible travel](https://alanconlon.com/posts/hunting-impossible-travel-kql/) |
 
 ## Using them
 
@@ -38,7 +39,6 @@ All of them run against the `SigninLogs` table. Before you start you need:
 
 These are next. Each query file lands here when its post goes live, not before.
 
-- **Impossible travel**: sign-ins for one account from places too far apart for the time between them (`SigninLogs`).
 - **Privileged role changes**: accounts added to admin roles, especially outside normal change windows (`AuditLogs`).
 - **Malicious inbox rules**: rules that forward, delete or hide mail, a common step after a mailbox is taken over (`OfficeActivity`).
 
@@ -58,6 +58,7 @@ New queries use the same layout.
 
 ## Changelog
 
+- **2026-11-03**: Impossible travel query ([PR #3](https://github.com/alanconlon/kql-hunting-queries/pull/3)).
 - **2026-10-16**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
 - **2026-10-10**: README links the start-here guide and the tuning checklist.
 - **2026-10-04**: `ResultType` values quoted as strings (`"0"`, `"500121"`), since the column is a string.

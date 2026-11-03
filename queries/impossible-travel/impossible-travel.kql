@@ -1,0 +1,38 @@
+// Impossible travel: consecutive sign-ins too far apart to be real
+// ------------------------------------------------------------------
+// What it finds: users whose successful sign-ins come from two places
+//   so far apart, so close together in time, that nobody could have
+//   travelled between them. Often a stolen session or password used
+//   from somewhere the real user isn't. VPNs and mobile carriers cause
+//   false positives, so check the cities before acting.
+// Table: SigninLogs
+// MITRE ATT&CK: T1078.004 Valid Accounts: Cloud Accounts
+// Written up in: https://alanconlon.com/posts/hunting-impossible-travel-kql/
+// ------------------------------------------------------------------
+let Lookback = 1d;           // how far back to look
+let SpeedThresholdKmh = 900; // roughly airliner speed; anything faster is suspicious
+// Step 1: successful sign-ins that carry coordinates
+SigninLogs
+| where TimeGenerated > ago(Lookback)
+| where ResultType == "0"                   // 0 = success
+| project TimeGenerated, UserPrincipalName,
+    Lat = toreal(LocationDetails.geoCoordinates.latitude),
+    Lon = toreal(LocationDetails.geoCoordinates.longitude),
+    City = tostring(LocationDetails.city)
+| where isnotempty(Lat)
+// Step 2: line up each user's sign-ins in time order and pair each with the one before.
+//   prev() only works on serialized rows; order by serializes them, so keep it right above.
+| order by UserPrincipalName asc, TimeGenerated asc
+| extend PrevLat = prev(Lat), PrevLon = prev(Lon),
+    PrevTime = prev(TimeGenerated), PrevUser = prev(UserPrincipalName),
+    PrevCity = prev(City)
+| where UserPrincipalName == PrevUser       // don't compare across different users
+// Step 3: distance and time between the pair, then the speed that implies
+| extend DistanceKm = geo_distance_2points(Lon, Lat, PrevLon, PrevLat) / 1000
+| extend HoursApart = datetime_diff('second', TimeGenerated, PrevTime) / 3600.0
+| where HoursApart > 0
+| extend SpeedKmh = DistanceKm / HoursApart
+// Step 4: keep only speeds no traveller could manage
+| where SpeedKmh > SpeedThresholdKmh
+| project UserPrincipalName, PrevCity, City, DistanceKm, HoursApart, SpeedKmh, TimeGenerated
+| sort by SpeedKmh desc
