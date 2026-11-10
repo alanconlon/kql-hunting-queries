@@ -1,5 +1,7 @@
 # KQL Hunting Queries
 
+[![MIT licence](https://img.shields.io/github/license/alanconlon/kql-hunting-queries?style=flat-square)](LICENSE) [![Last commit](https://img.shields.io/github/last-commit/alanconlon/kql-hunting-queries?style=flat-square)](https://github.com/alanconlon/kql-hunting-queries/commits/main) [![Write-ups on alanconlon.com](https://img.shields.io/badge/write--ups-alanconlon.com-blue?style=flat-square)](https://alanconlon.com/kql-threat-hunting/)
+
 Free, readable KQL hunting queries for Microsoft Sentinel and Defender. Each one is short enough to understand at a glance, commented step by step, and comes with a full write-up explaining how it was built and what to do with what it finds.
 
 They're the queries from the [KQL Hunting series](https://alanconlon.com/series/kql-hunting/) and the [Entra Identity series](https://alanconlon.com/series/entra-identity/) on [alanconlon.com](https://alanconlon.com). New ones land here as each post goes live.
