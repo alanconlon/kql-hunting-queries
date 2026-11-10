@@ -29,7 +29,7 @@ All of them run against the `SigninLogs` table. Before you start you need:
 
 1. Open **Logs** in Sentinel or your Log Analytics workspace.
 2. Paste the query and run it.
-3. Tune the `let` values at the top. Every query has its lookback window and threshold pulled out as named variables, so you can adjust them without reading the logic first.
+3. Tune the `let` values at the top. Every query has its lookback window, and any threshold, pulled out as named variables, so you can adjust them without reading the logic first.
 
 **In Defender Advanced Hunting, the queries need adapting.** Advanced hunting keeps Entra sign-ins in the [`EntraIdSignInEvents`](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table) table, which needs a Microsoft Entra ID P2 licence. It replaces the older [`AADSignInEventsBeta`](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-aadsignineventsbeta-table) table, which Microsoft deprecated on 19 October 2026. Both use different column names and types from `SigninLogs`, so the queries won't run there as written. Check the schema on those pages and adapt the columns before you rely on the results.
 
@@ -60,6 +60,7 @@ New queries use the same layout.
 
 ## Changelog
 
+- **2026-11-10**: README badges for the licence, last commit and write-ups ([PR #11](https://github.com/alanconlon/kql-hunting-queries/pull/11)), plus a wording fix: not every query has a threshold.
 - **2026-11-03**: Impossible travel: catches sign-ins under a second apart, ignores hops under 500 km, needs both coordinates, and notes that SigninLogs is interactive only ([PR #10](https://github.com/alanconlon/kql-hunting-queries/pull/10)).
 - **2026-11-03**: Impossible travel query ([PR #3](https://github.com/alanconlon/kql-hunting-queries/pull/3)).
 - **2026-10-16**: Break-glass sign-ins query from the Entra Identity series ([PR #1](https://github.com/alanconlon/kql-hunting-queries/pull/1)).
